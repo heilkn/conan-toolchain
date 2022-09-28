@@ -1,0 +1,6 @@
+[requires]
+eigen/3.3.9
+
+[generators]
+CMakeDeps
+

@@ -1,0 +1,33 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Default Config",
+      "description": "Default build using Ninja generator",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/default",
+      "toolchainFile": "${sourceDir}/../src/auto-conan.cmake",
+      "cacheVariables": {
+        "VCPKG_VERBOSE": "ON",
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "environment": {},
+      "vendor": {}
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "configuration": "Debug",
+      "configurePreset": "default"
+    }
+  ],
+  "testPresets": [],
+  "vendor": {}
+}
