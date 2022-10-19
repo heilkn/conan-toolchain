@@ -12,10 +12,12 @@
       "description": "Default build using Ninja generator",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/default",
-      "toolchainFile": "${sourceDir}/../src/auto-conan.cmake",
+      "toolchainFile": "${sourceDir}/../src/conan-toolchain.cmake",
       "cacheVariables": {
         "VCPKG_VERBOSE": "ON",
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CONAN_PROFILE": "${sourceDir}/v143.txt",
+        "CONAN_FILE": "conanfile.txt"
       },
       "environment": {},
       "vendor": {}
