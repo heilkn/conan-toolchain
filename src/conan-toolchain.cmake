@@ -9,11 +9,13 @@ message(NOTICE "CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE}")
 message(NOTICE "CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE}")
 
  
-if (NOT CONAN_EXPORTED AND NOT CONAN_TOOLCHAIN)
+if (NOT CONAN_TOOLCHAIN)
 
 	# Do not propagate toolchain into the conan invocation.
 	set(ENV{CMAKE_TOOLCHAIN_FILE})
+
 	execute_process(
+		COMMAND_ERROR_IS_FATAL ANY
 		COMMAND "conan"
 			"install" "${CMAKE_SOURCE_DIR}/${CONAN_FILE}"
 			"-pr" "${CONAN_PROFILE}"
@@ -24,17 +26,20 @@ if (NOT CONAN_EXPORTED AND NOT CONAN_TOOLCHAIN)
 			"-b" "missing"
 	)
 
+	# Remember generated toolchain file
 	set(CONAN_TOOLCHAIN ${CMAKE_BINARY_DIR}
 		CACHE INTERNAL "Indicate that conan toolchain was already generated and is located in this directory.")
+	set(ENV{CMAKE_TOOLCHAIN_FILE} "${CONAN_TOOLCHAIN}/conan_toolchain.cmake")
 	set(CMAKE_TRY_COMPILE_PLATFORM_VARIABLES CONAN_TOOLCHAIN)
+
 endif()
 
-if (NOT CONAN_EXPORTED)
-	include("${CONAN_TOOLCHAIN}/conan_toolchain.cmake")
-endif()
+include("${CONAN_TOOLCHAIN}/conan_toolchain.cmake")
 
 
-#[[ For later, cache check sum of conan file, to not invoke conan if not necessary
+#[[
+	For later, cache check sum of conan file, to not invoke conan if not necessary
+	but force invocation if conanfile changes.
 
 if (CONAN_FILE) # not set for try_compile runs
 	file(SHA256 "${CMAKE_SOURCE_DIR}/${CONAN_FILE}" CURRENT_CONANFILE_CHECKSUM)

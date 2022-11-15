@@ -9,5 +9,5 @@ find_package(GTest REQUIRED)
 target_link_libraries(testprogram
 	PRIVATE
 		Eigen3::Eigen
-		gtest::gtest
+		GTest::gtest_main
 )
