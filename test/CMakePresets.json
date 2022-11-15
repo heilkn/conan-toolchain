@@ -7,27 +7,35 @@
   },
   "configurePresets": [
     {
-      "name": "default",
-      "displayName": "Default Config",
-      "description": "Default build using Ninja generator",
+      "name": "base",
+      "hidden": true,
+      "description": "Basic configuration for Ninja generator.",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/default",
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+      "name": "conan",
+      "hidden": true,
+      "description": "Use Conan to resolve dependencies.",
       "toolchainFile": "${sourceDir}/../src/conan-toolchain.cmake",
       "cacheVariables": {
-        "VCPKG_VERBOSE": "ON",
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CONAN_PROFILE": "${sourceDir}/v143.txt",
         "CONAN_FILE": "conanfile.txt"
-      },
-      "environment": {},
-      "vendor": {}
+      }
+    },
+    {
+      "name": "v143-conan-debug",
+      "description": "MSVC 143 Debug",
+      "inherits": [ "base", "conan" ],
+      "cacheVariables": {
+        "CONAN_PROFILE": "${sourceDir}/v143.txt",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
     }
   ],
   "buildPresets": [
     {
       "name": "default",
-      "configuration": "Debug",
-      "configurePreset": "default"
+      "configurePreset": "v143-conan-debug"
     }
   ],
   "testPresets": [],

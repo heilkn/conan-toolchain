@@ -5,4 +5,9 @@ project("test-auto-conan")
 add_executable(testprogram "main.cpp")
 
 find_package(Eigen3 REQUIRED)
-target_link_libraries(testprogram PRIVATE Eigen3::Eigen)
+find_package(GTest REQUIRED)
+target_link_libraries(testprogram
+	PRIVATE
+		Eigen3::Eigen
+		gtest::gtest
+)

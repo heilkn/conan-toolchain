@@ -1,9 +1,9 @@
 
 #include <Eigen/Core>
+#include <gtest/gtest.h>
 
-int main()
+TEST(Program, LinksAndRuns)
 {
 	Eigen::Vector3d v;
-
-	return 0;
+	ASSERT_TRUE(true);
 }
