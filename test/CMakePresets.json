@@ -23,6 +23,12 @@
       }
     },
     {
+      "name": "vcpkg",
+      "hidden": true,
+      "description": "Use vcpkg to resolve dependencies.",
+      "toolchainFile": "~/Dev/Externals/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    },
+    {
       "name": "v143-conan-debug",
       "description": "MSVC 143 Debug",
       "inherits": [ "base", "conan" ],
@@ -30,12 +36,24 @@
         "CONAN_PROFILE": "${sourceDir}/v143.txt",
         "CMAKE_BUILD_TYPE": "Debug"
       }
+    },
+    {
+      "name": "v143-vcpkg-debug",
+      "description": "MSVC 143 Debug",
+      "inherits": [ "base", "vcpkg" ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
     }
   ],
   "buildPresets": [
     {
-      "name": "default",
+      "name": "v143-conan-debug",
       "configurePreset": "v143-conan-debug"
+    },
+    {
+      "name": "v143-vcpkg-debug",
+      "configurePreset": "v143-vcpkg-debug"
     }
   ],
   "testPresets": [],
