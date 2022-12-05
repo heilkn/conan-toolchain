@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.23.0)
 
 project("test-auto-conan")
+enable_testing()
 
 add_executable(testprogram "main.cpp")
 
@@ -11,3 +12,5 @@ target_link_libraries(testprogram
 		Eigen3::Eigen
 		GTest::gtest_main
 )
+
+add_test(TARGET testprogram)
