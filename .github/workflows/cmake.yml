@@ -15,6 +15,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Install conan
+      run: pip install conan
+    
     - name: Run the test script
       run: test/build.ps1
       shell: pwsh
