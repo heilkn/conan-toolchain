@@ -11,7 +11,7 @@ function Build-TestProject {
     $BuildDirectory = "$PSScriptRoot/../build"
 
     cmake -S $SourceDirectory -B $BuildDirectory `
-        -DCMAKE_MAKE_PROGRAM=Ninja `
+        -G Ninja `
         -DCMAKE_BUILD_TYPE=Release `
         --toolchain $TOOLCHAIN `
         -DCONAN_FILE="$SourceDirectory/conanfile.txt" `

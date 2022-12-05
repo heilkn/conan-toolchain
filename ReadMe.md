@@ -11,7 +11,7 @@ The following snippet shows, how cmake can be invoked from a pwsh command-line a
 
 ```pwsh
 cmake -S <source-folder> -B <build-folder> `
-    -DCMAKE_MAKE_PROGRAM=Ninja `
+    -G Ninja `
     -DCMAKE_BUILD_TYPE=Release `
     --toolchain <path-to:conan-toolchain.cmake> `
     -DCONAN_FILE=<path-to:conanfile.txt|conanfile.py> `
@@ -22,7 +22,7 @@ cmake --build <build-folder> --config Release
 Concretely, you can run from the checkout directory of this repository
 ```pwsh
 cmake -S test -B build `
-    -DCMAKE_MAKE_PROGRAM=Ninja `
+    -G Ninja `
     -DCMAKE_BUILD_TYPE=Release `
     --toolchain "$(pwd)/src/conan-toolchain.cmake" `
     -DCONAN_FILE="$(pwd)/test/conanfile.txt" `
