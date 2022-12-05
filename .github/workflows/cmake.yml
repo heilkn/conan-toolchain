@@ -16,8 +16,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Install conan
-      run: pip install conan
+    - name: Install Conan and Ninja
+      run: pip install conan ninja
     
     - name: Run the test script
       run: test/build.ps1
