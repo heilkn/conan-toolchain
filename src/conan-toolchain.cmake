@@ -15,24 +15,25 @@ if (NOT CONAN_TOOLCHAIN)
 	# Do not propagate toolchain into the conan invocation.
 	set(ENV{CMAKE_TOOLCHAIN_FILE})
 
-	set(CONAN_ERROR_LOG "${CMAKE_BINARY_DIR}/conan.log")
+	set(CONAN_ERROR_LOG "${CMAKE_BINARY_DIR}/conan/error.log")
 	message(NOTICE "Invoking conan CLI. Errors are logged to ${CONAN_ERROR_LOG}.")
+	file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/conan")
 	execute_process(
 		COMMAND_ERROR_IS_FATAL ANY
 		RESULTS_VARIABLE CONAN_RESULT
 		ERROR_FILE ${CONAN_ERROR_LOG}
 		COMMAND "conan"
 			"install" ${CONAN_FILE_REAL}
-			"-pr" "${CONAN_PROFILE}"
+			"-pr" ${CONAN_PROFILE}
 			"-pr:b=default"
 			"-s" "build_type=${CMAKE_BUILD_TYPE}"
-			"-if" ${CMAKE_BINARY_DIR}
+			"-if" "${CMAKE_BINARY_DIR}/conan"
 			"-c" "tools.cmake.cmaketoolchain:generator=Ninja"
 			"-b" "missing"
 	)
 
 	# Remember generated toolchain file
-	set(CONAN_TOOLCHAIN ${CMAKE_BINARY_DIR}
+	set(CONAN_TOOLCHAIN "${CMAKE_BINARY_DIR}/conan"
 		CACHE INTERNAL "Indicate that conan toolchain was already generated and is located in this directory.")
 	set(ENV{CMAKE_TOOLCHAIN_FILE} "${CONAN_TOOLCHAIN}/conan_toolchain.cmake")
 	set(CMAKE_TRY_COMPILE_PLATFORM_VARIABLES CONAN_TOOLCHAIN)

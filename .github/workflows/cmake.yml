@@ -23,3 +23,9 @@ jobs:
       run: test/build.ps1
       shell: pwsh
 
+    - name: Archive Conan Output
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: Conan Output
+        path: ${{github.workspace}}/build/conan/
